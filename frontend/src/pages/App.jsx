@@ -1,9 +1,9 @@
 // /app/frontend/src/App.jsx 예시
-import React from 'react'; // React를 사용하므로 import 해야 합니다.
-import Graph from '../components/Graph'; // GraphComponent를 import 합니다.
-import List from '../components/List'; // GraphComponent를 import 합니다.
-import styled from 'styled-components'; // styled-components를 사용하기 위해 import 합니다.
-const Style=styled.div`
+import React from "react"; // React를 사용하므로 import 해야 합니다.
+import Graph from "../components/Graph"; // GraphComponent를 import 합니다.
+import List from "../components/List"; // GraphComponent를 import 합니다.
+import styled from "styled-components"; // styled-components를 사용하기 위해 import 합니다.
+const Style = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
