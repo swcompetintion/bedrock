@@ -1,21 +1,19 @@
-[project]
-name = "app"
+[tool.poetry]
+name = "fastapi-react"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Your Name",email = "you@example.com"}
-]
+authors = ["y"]
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "fastapi[standard] (>=0.115.12,<0.116.0)",
-    "pytest (>=8.3.5,<9.0.0)"
-]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = {extras = ["standard"], version = "^0.115.12"}
+pytest = "^8.3.5"
+beanie = "^1.29.0"
+pydantic-settings = "^2.9.1"
+uvicorn = "^0.34.2"
 
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-package-mode = false

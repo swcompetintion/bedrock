@@ -1,5 +1,5 @@
 from typing import List
-from backend.models.plan import Plan
+from backend.models.plans import Plan
 
 
 class PlanRepository:
