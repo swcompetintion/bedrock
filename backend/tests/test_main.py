@@ -1,26 +1,55 @@
-# tests/test_main.py
+# import pytest
+# from fastapi.testclient import TestClient
+# import os
+# import sys
+# sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+
+
+# if "pytest" in sys.modules:
+#     from backend.models.plans import Plan
+#     from backend.main import app
+
+#     @pytest.fixture
+#     def client():
+#         return TestClient(app)
+
+#     def test_plan(client):
+
+#         plan = {
+#             "id": 1,
+#             "title": "Test Plan",
+#             "description": "This is a test plan.",
+#             "price": 100.0,
+#             "period": 30,
+#             "created_at": "2023-10-01T00:00:00Z",
+#             "updated_at": "2023-10-01T00:00:00Z"
+#         }
+#         response = client.post("/todos", json=plan)
+#         assert response.status_code == 201
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import MagicMock
-from backend.main import app, UserService
+import os
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+if "pytest" in sys.modules:
+    from backend.main import app
 
 
 @pytest.fixture
 def client():
-    return TestClient(app)
+    with TestClient(app) as client:
+        yield client
 
 
-def test_read_user(client):
-    # UserService를 Mock 객체로 교체
-    mock_user_service = MagicMock()
-    mock_user_service.get_user.return_value = {"id": 1, "name": "Mocked User"}
+def test_plan(client):
 
-    # FastAPI 애플리케이션에 Mock 객체 주입
-    app.dependency_overrides[UserService] = lambda: mock_user_service
+    data = {"title": "Todo 1", "description": "Description Todo 1"}
+    response = client.post("/todos", json=data)
 
-    response = client.get("/users/1")
-    assert response.status_code == 200
-    assert response.json() == {"id": 1, "name": "Mocked User"}
+    assert response.status_code == 201
 
-    # Mock 메서드가 호출되었는지 확인
-    mock_user_service.get_user.assert_called_once_with(1)
+    response_data = response.json()
+    assert "id" in response_data
+    assert response_data["title"] == "Todo 1"
+    assert response_data["description"] == "Description Todo 1"
