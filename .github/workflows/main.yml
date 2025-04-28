@@ -12,6 +12,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        env:
+          MONGO_INITDB_ROOT_USERNAME: test
+          MONGO_INITDB_ROOT_PASSWORD: test
+
     steps:
       - name: 체크아웃 소스코드
         uses: actions/checkout@v2
@@ -32,7 +41,7 @@ jobs:
           poetry install --no-interaction --no-root
 
       - name: Pytest 실행
+        env:
+          MONGO_URI: "mongodb://test:test@localhost:27017"
         run: |
           poetry run pytest backend/tests/test_main.py
-
-  
