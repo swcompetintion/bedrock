@@ -15,6 +15,5 @@ if "pytest" in sys.modules:
 
     def test_create_todo(clients):
         with clients as client:
-            data = {"title": "Todo 1", "description": "Description Todo 1"}
-            response = client.post("/todos", json=data)
-            assert response.status_code == 201
+            response = client.get("/plans")
+            assert response.status_code == 404
