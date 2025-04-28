@@ -8,7 +8,7 @@ from .routes.plans import plan_router
 
 
 @asynccontextmanager
-async def lifespan():
+async def lifespan(app: FastAPI):
     await initialize_database()
     yield
 
