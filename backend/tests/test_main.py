@@ -6,7 +6,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
 
 
 if "pytest" in sys.modules:
-    from backend.models.plans import Plan
     from backend.main import app
 
     @pytest.fixture

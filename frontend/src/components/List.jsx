@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+// src/components/List.js (수정 예시 경로)
+import React from "react";
 import styled from "styled-components";
 
-const Style=styled.div`
+const Style = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,19 +19,25 @@ const Style=styled.div`
     transform: scale(1.05);
   }
   cursor: pointer;
-  `
-const List = () => {
-  
+`;
 
-
-  const handleClick = (item) => {
-    alert(`Clicked on: ${item.name}`);
-  };
+// BaseComponent로부터 data와 handleClick을 props로 전달받습니다.
+const List = ({ data, handleClick }) => {
+  // 기존의 handleClick 정의 부분은 삭제합니다.
+  // data는 props로 전달받았으므로 필요에 따라 사용 가능합니다.
 
   return (
     <Style>
       <h2>Data List</h2>
-      
+      {/* 예시: data를 사용하여 목록을 렌더링할 경우 */}
+      <ul>
+        {data &&
+          data.map((item, index) => (
+            <li key={index} onClick={() => handleClick(item)}>
+              {item.name} (x: {item.x}, y: {item.y})
+            </li>
+          ))}
+      </ul>
     </Style>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { initialData } from "../tests/DummyData";
 
-const DataVisualizer = ({ children }) => {
+const Form = ({ plan }) => {
   const [data] = useState(initialData);
 
   const handleClick = (item) => {
@@ -20,4 +19,4 @@ const DataVisualizer = ({ children }) => {
   );
 };
 
-export default DataVisualizer;
+export default Form;
