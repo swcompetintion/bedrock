@@ -15,15 +15,18 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
     "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "style-loader": "^4.0.0",
     "webpack": "^5.99.6",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
     "react-beautiful-dnd": "^13.1.1",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^7.5.2",
     "recharts": "^2.15.3",
     "styled-components": "^6.1.17"

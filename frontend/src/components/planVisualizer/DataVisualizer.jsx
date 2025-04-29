@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { initialData } from "../tests/DummyData";
+import { initialData } from "../../tests/DummyData";
 
 const DataVisualizer = ({ children }) => {
   const [data] = useState(initialData);
