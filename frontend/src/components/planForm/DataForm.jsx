@@ -49,7 +49,9 @@ const DataForm = ({ value, onChange, readOnly = false, style }) => {
         readOnly={readOnly} // 부모로부터 받은 readOnly 상태 적용
         modules={readOnly ? {} : modules} // 읽기 전용 시 툴바 숨김 (선택 사항)
         formats={formats} // 포맷 적용
-        style={{ height: style ? `${parseInt(style.height) - 50}px` : "450px" }} // 컨테이너 높이 고려하여 에디터 본문 높이 설정
+        style={{
+          height: style ? `${parseInt(style.height) - 50}px` : "450px",
+        }} // 컨테이너 높이 고려하여 에디터 본문 높이 설정
       />
     </div>
   );
