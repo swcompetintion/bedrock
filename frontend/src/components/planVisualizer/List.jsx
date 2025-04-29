@@ -7,15 +7,16 @@ const Style = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+
   height: 100%;
   background-color: #f0f0f0;
-  padding: 20px;
+
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 20px;
+
   transition: transform 0.2s;
-  &:hover {
+
+  li:hover {
     transform: scale(1.05);
   }
   cursor: pointer;
@@ -28,7 +29,6 @@ const List = ({ data, handleClick }) => {
 
   return (
     <Style>
-      <h2>Data List</h2>
       {/* 예시: data를 사용하여 목록을 렌더링할 경우 */}
       <ul>
         {data &&

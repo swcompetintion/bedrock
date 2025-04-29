@@ -6,32 +6,73 @@ import DataVisualizer from "../components/planVisualizer/DataVisualizer"; // Dat
 import styled from "styled-components"; // styled-components를 사용하기 위해 import 합니다.
 import Writer from "../components/planForm/Writer";
 const Style = styled.div`
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   height: 100%;
   background-color: #f0f0f0;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  section {
+    width: 100%;
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    justify-content: space-between;
+  }
+  section > button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 `;
-
+const Viewer = styled.div`
+  width: 80%;
+  position: relative;
+`;
 function App() {
+  const [isList, setIsList] = React.useState(true);
+
   return (
     <Style>
       <h1>베드락 플래너</h1>
-      {/* Graph와 List 컴포넌트를 DataVisualizer로 감싸서 사용 */}
-      <DataVisualizer>
-        <Graph />{" "}
-        {/* DataVisualizer로부터 data와 handleClick을 props로 받습니다. */}
-        <List />{" "}
-        {/* DataVisualizer로부터 data와 handleClick을 props로 받습니다. */}
-      </DataVisualizer>
-      <Writer />
+      <Viewer>
+        <DataVisualizer>
+          <Graph />{" "}
+          <section>
+            {isList ? (
+              <button
+                onClick={() => {
+                  setIsList(!isList);
+                }}
+              >
+                플랜 작성
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setIsList(!isList);
+                }}
+              >
+                플랜 목록
+              </button>
+            )}
+            {isList ? <button>플랜 필터링</button> : <></>}
+          </section>
+          {isList ? <List /> : <Writer />}
+          {/* DataVisualizer로부터 data와 handleClick을 props로 받습니다. */}
+        </DataVisualizer>
+      </Viewer>
       {/* DataForm 컴포넌트 추가 */}
-      <p>이것은 App 컴포넌트의 내용입니다.</p>
+      <p>all right deserved us</p>
     </Style>
   );
 }
