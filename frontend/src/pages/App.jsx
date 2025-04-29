@@ -4,7 +4,7 @@ import Graph from "../components/planVisualizer/Graph"; // Graph 컴포넌트를
 import List from "../components/planVisualizer/List"; // List 컴포넌트를 import 합니다.
 import DataVisualizer from "../components/planVisualizer/DataVisualizer"; // DataVisualizer를 import 합니다.
 import styled from "styled-components"; // styled-components를 사용하기 위해 import 합니다.
-import DataForm from "../components/planForm/DataForm";
+import Writer from "../components/planForm/Writer";
 const Style = styled.div`
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@ function App() {
         <List />{" "}
         {/* DataVisualizer로부터 data와 handleClick을 props로 받습니다. */}
       </DataVisualizer>
-      <DataForm />
+      <Writer />
       {/* DataForm 컴포넌트 추가 */}
       <p>이것은 App 컴포넌트의 내용입니다.</p>
     </Style>
