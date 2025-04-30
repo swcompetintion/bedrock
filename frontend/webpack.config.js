@@ -1,18 +1,18 @@
-// webpack.config.js
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "production", // 또는 'production'
+  mode: "production", 
   entry: "./src/index.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js", // filename을 bundle.js로 변경하는 것이 일반적입니다.
+    filename: "bundle.js", 
   },
   devServer: {
     static: path.resolve(__dirname, "dist"),
     port: 3000,
-    historyApiFallback: true, // SPA에서 라우팅을 위해 필요할 수 있습니다.
+    historyApiFallback: true, 
   },
   module: {
     rules: [
@@ -27,14 +27,14 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/, // .css 확장자로 끝나는 파일을 찾습니다.
+        test: /\.css$/,
         use: [
-          "style-loader", // CSS를 DOM에 삽입합니다.
-          "css-loader", // CSS 파일을 JavaScript 모듈로 변환합니다.
+          "style-loader", 
+          "css-loader",
         ],
       },
 
-      // 필요하다면 CSS/이미지 등을 위한 로더 규칙 추가
+
     ],
   },
   plugins: [
@@ -42,9 +42,9 @@ module.exports = {
       template: "./public/index.html",
     }),
   ],
-  // --- 이 부분을 추가/수정합니다 ---
+
   resolve: {
-    extensions: [".js", ".jsx", ".json"], // .jsx 확장자를 추가하여 Webpack이 찾아보도록 합니다.
+    extensions: [".js", ".jsx", ".json"],
   },
-  // -----------------------------
+
 };
