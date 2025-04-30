@@ -1,7 +1,8 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from beanie import init_beanie, Document
-from backend.config import settings
-from backend.models.plans import Plan, PlanUpdate
+from backend.core.config import settings
+from backend.models.plans import PlanModel
+from backend.schemas.plans import PlanUpdate
 
 
 async def initialize_database():
@@ -9,7 +10,7 @@ async def initialize_database():
         client = AsyncIOMotorClient(settings.DATABASE_URL)
         await init_beanie(
             database=client.get_default_database(),
-            document_models=[Plan]
+            document_models=[PlanModel]
         )
         print("데이터베이스 연결 성공!!! ㅠㅠㅠㅠㅠㅠㅠ")
     except Exception as e:

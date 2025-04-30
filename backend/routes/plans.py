@@ -1,14 +1,15 @@
 from fastapi import APIRouter
-from backend.models.plans import Plan, PlanUpdate
+from backend.models.plans import PlanModel
+from backend.schemas.plans import PlanUpdate
 from backend.database.connection import Database
 plan_router = APIRouter(
     prefix="/plans",
     tags=["plans"]
 )
-plan_db = Database(Plan)
+plan_db = Database(PlanModel)
 
 
-@plan_router.get("/", response_model=list[Plan])
+@plan_router.get("/", response_model=list[PlanModel])
 async def get_all_plans():
     plans = await plan_db.get_all()
     return plans
@@ -21,7 +22,7 @@ async def get_plan(id: int):
 
 
 @plan_router.post("/")
-async def create_plan(plan: Plan):
+async def create_plan(plan: PlanModel):
     await plan_db.save(plan)
     return {"message": "plan created successfully"}
 
