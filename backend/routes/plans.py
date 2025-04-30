@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from backend.models.plans import PlanModel
 from backend.schemas.plans import PlanUpdate
 from backend.database.connection import Database
+from backend.utils.logger import logger
 plan_router = APIRouter(
     prefix="/plans",
     tags=["plans"]
@@ -11,6 +12,7 @@ plan_db = Database(PlanModel)
 
 @plan_router.get("/", response_model=list[PlanModel])
 async def get_all_plans():
+    logger.info("Fetching all plans")
     plans = await plan_db.get_all()
     return plans
 
