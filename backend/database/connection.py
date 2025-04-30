@@ -12,7 +12,7 @@ async def initialize_database():
             database=client.get_default_database(),
             document_models=[PlanModel]
         )
-        print("데이터베이스 연결 성공!!! ㅠㅠㅠㅠㅠㅠㅠ")
+        print("데이터베이스 연결 성공")
     except Exception as e:
         print(f"데이터베이스 연결 실패: {e}")
 
@@ -26,7 +26,7 @@ class Database:
         return
 
     async def get_all(self) -> list:
-        """모든 이벤트 가져오는 메서드"""
+
         docs = await self.model.find_all().to_list()
         return docs
 
