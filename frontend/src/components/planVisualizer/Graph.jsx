@@ -8,7 +8,7 @@ import {
 } from "recharts";
 import Node from "./Node";
 
-const Graph = ({ data, handleClick }) => {
+const Graph = ({ data, handleClick, onNodeDragEnd }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <ScatterChart>
@@ -16,7 +16,13 @@ const Graph = ({ data, handleClick }) => {
         <YAxis dataKey="y" />
         <Scatter
           data={data}
-          shape={<Node data={data} handleClick={handleClick} />}
+          shape={
+            <Node
+              data={data}
+              handleClick={handleClick}
+              onNodeDragEnd={onNodeDragEnd}
+            />
+          }
           fill="#8884d8"
         />
       </ScatterChart>
