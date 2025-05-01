@@ -12,7 +12,7 @@ if "pytest" in sys.modules:
     def clients():
         return TestClient(app)
 
-    def test_create_todo(clients):
+    def test_get_plans(clients):
         with clients as client:
-            response = client.get("/plans")
-            assert response.status_code == 404
+            response = client.get("/plans/")
+            assert response.status_code == 200
