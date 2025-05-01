@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import Node from "./Node";
 
 const Graph = ({ data, handleClick }) => {
   return (
@@ -15,11 +16,8 @@ const Graph = ({ data, handleClick }) => {
         <YAxis dataKey="y" />
         <Scatter
           data={data}
+          shape={<Node data={data} handleClick={handleClick} />}
           fill="#8884d8"
-          onClick={handleClick}
-          onMouseOver={() => {
-            console.log("Mouse over");
-          }}
         />
       </ScatterChart>
     </ResponsiveContainer>
