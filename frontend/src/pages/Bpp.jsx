@@ -155,7 +155,7 @@ function ClickableScatterChart() {
         width={chartWidth}
         height={chartHeight}
         margin={chartMargin}
-        onClick={handleChartBackgroundClick} // 배경 클릭 핸들러
+        onClick={handleChartBackgroundClick}
       >
         <CartesianGrid />
 
