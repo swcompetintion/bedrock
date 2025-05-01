@@ -64,7 +64,7 @@ const Node = (props) => {
         onNodeDragEnd({
           id: payload.id,
           x: payload.x + totalDragDeltaRef.current.x,
-          y: payload.y + totalDragDeltaRef.current.y,
+          y: payload.y - totalDragDeltaRef.current.y,
         });
       }
     }
