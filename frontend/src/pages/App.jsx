@@ -18,7 +18,7 @@ const Style = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   section {
     width: 100%;
-    display: flex; /* 플렉스 컨테이너로 설정 */
+    display: flex;
     justify-content: space-between;
   }
   section > button {
@@ -70,7 +70,7 @@ function App() {
         </DataVisualizer>
       </Viewer>
 
-      <p>all right deserved us</p>
+      <p>Copyright 2025. BedRockTeam All rights reserved.</p>
     </Style>
   );
 }
