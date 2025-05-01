@@ -42,6 +42,6 @@ jobs:
 
       - name: Pytest 실행
         env:
-          MONGO_URI: "mongodb://test:test@localhost:27017/testdb"
+          DATABASE_URL: "mongodb://test:test@localhost:27017/test?authSource=admin&retryWrites=true&w=majority"
         run: |
           poetry run pytest backend/tests/test_main.py
