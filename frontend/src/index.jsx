@@ -2,11 +2,13 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "./pages/App";
+import ClickableScatterChart from "./pages/Bpp";
 const Main = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="/test" element={<ClickableScatterChart />} />
       </Routes>
     </Router>
   );
