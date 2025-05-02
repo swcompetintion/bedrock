@@ -1,119 +1,3 @@
-// import React, { useEffect } from "react";
-// import {
-//   ResponsiveContainer,
-//   ScatterChart,
-//   Scatter,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-// } from "recharts";
-// import Node from "./Node";
-
-// const CustomTooltip = ({ active, payload, label }) => {
-//   useEffect(() => {
-//     let x = null;
-//     let y = null;
-
-//     if (payload && Array.isArray(payload) && payload.length > 0) {
-//       x = payload[0].payload.x;
-//       y = payload[0].payload.y;
-//     }
-
-//     console.log(x, y);
-
-//     if (active && payload && payload.length) {
-//       try {
-//         localStorage.setItem("x", x);
-//         localStorage.setItem("y", y);
-//       } catch (e) {
-//         console.error("Error saving to localStorage", e);
-//       }
-//     }
-//   }, [active, payload]);
-
-//   if (active && payload && payload.length) {
-//     return (
-//       <div
-//         style={{
-//           backgroundColor: "rgba(255, 255, 255, 0.9)",
-//           border: "1px solid #ccc",
-//           padding: "10px",
-//           borderRadius: "5px",
-//           fontSize: "14px",
-//           color: "#333",
-//         }}
-//       >
-//         {payload.map((entry, index) => {
-//           return (
-//             <div key={`item-${index}`}>
-//               {entry.name}: {entry.value}
-//             </div>
-//           );
-//         })}
-//       </div>
-//     );
-//   }
-
-//   return null;
-// };
-
-// const Graph = ({ data, handleClick, onNodeDragEnd }) => {
-//   const filteredData = data.filter((item) => {
-//     return item.x >= 0 && item.x <= 30 && item.y >= 0 && item.y <= 30;
-//   });
-
-//   const ticks = Array.from({ length: 31 }, (_, i) => i);
-//   const fakeData = [];
-//   for (let y = 0; y < 31; y++)
-//     for (let x = 0; x < 31; x++) fakeData.push({ x, y });
-
-//   return (
-//     <ResponsiveContainer width="100%" height={600}>
-//       <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-//         <XAxis
-//           type="number"
-//           dataKey="x"
-//           name="X-coordinate"
-//           domain={[0, 30]}
-//           ticks={ticks}
-//           interval={0}
-//         />
-
-//         <YAxis
-//           type="number"
-//           dataKey="y"
-//           name="Y-coordinate"
-//           domain={[0, 30]}
-//           ticks={ticks}
-//         />
-//         <Tooltip content={<CustomTooltip />} />
-
-//         <Scatter
-//           name="Invisible Grid"
-//           data={fakeData}
-//           fill="transparent"
-//           stroke="transparent"
-//           r={3}
-//           activeDot={{ r: 3 }}
-//           isAnimationActive={false}
-//         />
-//         <Scatter
-//           data={filteredData}
-//           shape={(props) => (
-//             <Node
-//               {...props}
-//               handleClick={handleClick}
-//               onNodeDragEnd={onNodeDragEnd}
-//             />
-//           )}
-//           fill="#8884d8"
-//         />
-//       </ScatterChart>
-//     </ResponsiveContainer>
-//   );
-// };
-
-// export default Graph;
 import React, { useEffect } from "react";
 import {
   ResponsiveContainer,
@@ -226,12 +110,10 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
         <Tooltip content={<CustomTooltip />} />
 
         <Scatter
-          name="Invisible Grid"
-          data={fakeData} // 이 데이터의 좌표가 툴팁 payload로 전달됩니다.
-          fill="transparent"
+          name="Visible Grid Points"
+          data={fakeData}
+          fill="rgba(139, 0, 255, 0.3)"
           stroke="transparent"
-          r={5} // 마우스 오버 감지 영역 반지름
-          activeDot={{ r: 5, stroke: "#ccc", fill: "rgba(0,0,0,0.1)" }}
           isAnimationActive={false}
         />
 
