@@ -5,8 +5,6 @@ const DataVisualizer = ({ children }) => {
   const [data, setData] = useState(initialData);
 
   const updateNodePosition = ({ id, x, y }) => {
-    console.log(`DataVisualizer: 노드 ${id} 위치 업데이트 요청 (${x}, ${y})`);
-
     setData((currentData) => {
       const updatedData = currentData.map((item) =>
         item.id === id ? { ...item, x: x, y: y } : item

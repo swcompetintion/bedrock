@@ -12,14 +12,14 @@ import Node from "./Node";
 const CustomTooltip = ({ active, payload, label }) => {
   useEffect(() => {
     if (!active) {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
+      localStorage.removeItem("X");
+      localStorage.removeItem("Y");
       return;
     }
 
     if (!payload || !Array.isArray(payload) || payload.length === 0) {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
+      localStorage.removeItem("X");
+      localStorage.removeItem("Y");
       return;
     }
 
@@ -30,8 +30,8 @@ const CustomTooltip = ({ active, payload, label }) => {
     const extractedY = yEntry?.value;
     if (extractedX !== undefined && extractedY !== undefined) {
       try {
-        localStorage.setItem("tooltipX", String(extractedX));
-        localStorage.setItem("tooltipY", String(extractedY));
+        localStorage.setItem("X", String(extractedX));
+        localStorage.setItem("Y", String(extractedY));
       } catch (e) {
         console.error(
           "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
@@ -39,8 +39,8 @@ const CustomTooltip = ({ active, payload, label }) => {
         );
       }
     } else {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
+      localStorage.removeItem("X");
+      localStorage.removeItem("Y");
       console.warn(
         "CustomTooltip: 페이로드에서 유효한 좌표 값을 추출할 수 없습니다."
       );
