@@ -5,21 +5,25 @@ const DataVisualizer = ({ children }) => {
   const [data, setData] = useState(initialData);
 
   const updateNodePosition = ({ id, x, y }) => {
-    setData((currentData) => {
-      const updatedData = currentData.map((item) =>
-        item.id === id ? { ...item, x: x, y: y } : item
-      );
+    if (id) {
+      console.log(x + " " + y + " " + id);
+      setData((currentData) => {
+        const updatedData = currentData.map((item) =>
+          item.id === id ? { ...item, x: x, y: y } : item
+        );
 
-      updatedData.sort((a, b) => {
-        if (a.x !== b.x) {
-          return a.x - b.x;
-        } else {
-          return a.y - b.y;
-        }
+        updatedData.sort((a, b) => {
+          if (a.x !== b.x) {
+            return a.x - b.x;
+          } else {
+            return a.y - b.y;
+          }
+        });
+        console.log(id + " " + x + " " + y);
+
+        return updatedData;
       });
-
-      return updatedData;
-    });
+    }
   };
 
   const handleClick = (item) => {

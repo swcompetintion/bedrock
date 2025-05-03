@@ -9,67 +9,30 @@ import {
 } from "recharts";
 import Node from "./Node";
 
-const CustomTooltip = ({ active, payload, label }) => {
-  useEffect(() => {
-    if (!active) {
-      localStorage.removeItem("X");
-      localStorage.removeItem("Y");
-      return;
-    }
+const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
+  const jsonString = JSON.stringify(payload);
+  const regex = /"payload":\{"x":(\d+),"y":(\d+)\}/;
+  const match = jsonString.match(regex);
 
-    if (!payload || !Array.isArray(payload) || payload.length === 0) {
-      localStorage.removeItem("X");
-      localStorage.removeItem("Y");
-      return;
-    }
+  let extractedX = undefined;
+  let extractedY = undefined;
 
-    const xEntry = payload.find((entry) => entry.dataKey === "x");
-    const yEntry = payload.find((entry) => entry.dataKey === "y");
+  if (match && match[1] !== undefined && match[2] !== undefined) {
+    // 정규 표현식 그룹 1번과 2번에서 각각 x와 y 값을 문자열로 가져옵니다.
+    extractedX = Number(match[1]); // 숫자로 변환
+    extractedY = Number(match[2]); // 숫자로 변환
 
-    const extractedX = xEntry?.value;
-    const extractedY = yEntry?.value;
-    if (extractedX !== undefined && extractedY !== undefined) {
-      try {
-        localStorage.setItem("X", String(extractedX));
-        localStorage.setItem("Y", String(extractedY));
-      } catch (e) {
-        console.error(
-          "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
-          e
-        );
-      }
-    } else {
-      localStorage.removeItem("X");
-      localStorage.removeItem("Y");
-      console.warn(
-        "CustomTooltip: 페이로드에서 유효한 좌표 값을 추출할 수 없습니다."
-      );
-    }
-  }, [active, payload]);
-  if (active && payload && payload.length) {
-    return (
-      <div
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.9)",
-          border: "1px solid #ccc",
-          padding: "10px",
-          borderRadius: "5px",
-          fontSize: "14px",
-          color: "#333",
-        }}
-      >
-        {payload.map((entry, index) => {
-          if (!entry) return null;
-          return (
-            <div key={`item-${index}`}>
-              {entry.name ?? "N/A"}: {entry.value ?? "N/A"}
-            </div>
-          );
-        })}
-      </div>
-    );
+    console.log("문자열에서 추출된 x 값 (정규식):", extractedX); // 30
+    console.log("문자열에서 추출된 y 값 (정규식):", extractedY); // 19
+  } else {
+    console.log("문자열에서 x, y 값을 추출할 수 없습니다.");
   }
-
+  console.log(localStorage.getItem("id") + " " + extractedX + " " + extractedY);
+  onNodeDragEnd({
+    id: localStorage.getItem("id"),
+    x: extractedX,
+    y: extractedY,
+  });
   return null;
 };
 
@@ -98,7 +61,6 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           ticks={ticks}
           interval={0}
         />
-
         <YAxis
           type="number"
           dataKey="y"
@@ -106,9 +68,8 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           domain={[0, 30]}
           ticks={ticks}
         />
-
-        <Tooltip content={<CustomTooltip />} />
-
+        // Graph.jsx (수정된 부분)
+        <Tooltip content={<CustomTooltip onNodeDragEnd={onNodeDragEnd} />} />
         <Scatter
           name="Visible Grid Points"
           data={fakeData}
@@ -116,17 +77,10 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           stroke="transparent"
           isAnimationActive={false}
         />
-
         <Scatter
           name="Actual Data"
           data={filteredData}
-          shape={(props) => (
-            <Node
-              {...props}
-              handleClick={handleClick}
-              onNodeDragEnd={onNodeDragEnd}
-            />
-          )}
+          shape={(props) => <Node {...props} handleClick={handleClick} />}
           fill="#8884d8"
         />
       </ScatterChart>
