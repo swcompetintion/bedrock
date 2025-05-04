@@ -5,8 +5,9 @@ const DataVisualizer = ({ children }) => {
   const [data, setData] = useState(initialData);
 
   const updateNodePosition = ({ id, x, y }) => {
+    console.log(" x:" + x + " y:" + y + " id:" + id);
+
     if (id) {
-      console.log(x + " " + y + " " + id);
       setData((currentData) => {
         const updatedData = currentData.map((item) =>
           item.id === id ? { ...item, x: x, y: y } : item
@@ -19,8 +20,7 @@ const DataVisualizer = ({ children }) => {
             return a.y - b.y;
           }
         });
-        console.log(id + " " + x + " " + y);
-
+        localStorage.removeItem("id");
         return updatedData;
       });
     }

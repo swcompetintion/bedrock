@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 const Node = (props) => {
-  const { cx, cy, payload, handleClick, onNodeDragEnd } = props;
+  const { cx, cy, payload, handleClick } = props;
   const [currentPos, setCurrentPos] = useState({ x: cx, y: cy });
   const [isDragging, setIsDragging] = useState(false);
   const startClientPosRef = useRef({ x: 0, y: 0 });
@@ -16,7 +16,6 @@ const Node = (props) => {
   const handleMouseDown = (e) => {
     setIsDragging(true);
     localStorage.setItem("id", payload.id);
-    console.log("giririgrig");
     startClientPosRef.current = { x: e.clientX, y: e.clientY };
 
     startNodePosRef.current = { x: currentPos.x, y: currentPos.y };
@@ -46,7 +45,6 @@ const Node = (props) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    onNodeDragEnd({});
     localStorage.removeItem("id");
     const movedDistance = Math.sqrt(
       Math.pow(totalDragDeltaRef.current.x, 2) +
