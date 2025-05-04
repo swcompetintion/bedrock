@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
+      - jiwoong
   pull_request:
     branches:
       - main
+      - jiwoong
+
 
 jobs:
   test:

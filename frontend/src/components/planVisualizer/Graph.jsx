@@ -10,29 +10,64 @@ import {
 import Node from "./Node";
 
 const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
-  const jsonString = JSON.stringify(payload);
-  const regex = /"payload":\{"x":(\d+),"y":(\d+)\}/;
-  const match = jsonString.match(regex);
-
-  let extractedX = undefined;
-  let extractedY = undefined;
-
-  if (match && match[1] !== undefined && match[2] !== undefined) {
-    // 정규 표현식 그룹 1번과 2번에서 각각 x와 y 값을 문자열로 가져옵니다.
-    extractedX = Number(match[1]); // 숫자로 변환
-    extractedY = Number(match[2]); // 숫자로 변환
-
-    console.log("문자열에서 추출된 x 값 (정규식):", extractedX); // 30
-    console.log("문자열에서 추출된 y 값 (정규식):", extractedY); // 19
-  } else {
-    console.log("문자열에서 x, y 값을 추출할 수 없습니다.");
+  console.log(payload);
+  if (localStorage.getItem("id") === null) {
+    return;
   }
-  console.log(localStorage.getItem("id") + " " + extractedX + " " + extractedY);
-  onNodeDragEnd({
-    id: localStorage.getItem("id"),
-    x: extractedX,
-    y: extractedY,
-  });
+  useEffect(() => {
+    const xEntry = payload.find((entry) => entry.dataKey === "x");
+    const yEntry = payload.find((entry) => entry.dataKey === "y");
+
+    const extractedX = xEntry?.value;
+    const extractedY = yEntry?.value;
+    const extractedId = localStorage.getItem("id");
+    if (extractedX !== undefined && extractedY !== undefined) {
+      try {
+        onNodeDragEnd({ id: extractedId, x: extractedX, y: extractedY });
+      } catch (e) {
+        console.error(
+          "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
+          e
+        );
+      }
+    } else {
+      localStorage.removeItem("tooltipX");
+      localStorage.removeItem("tooltipY");
+      console.warn(
+        "CustomTooltip: 페이로드에서 유효한 좌표 값을 추출할 수 없습니다."
+      );
+    }
+    console.log(extractedX, extractedY, localStorage.getItem("id"));
+    onNodeDragEnd({
+      id: localStorage.getItem("id"),
+      x: extractedX,
+      y: extractedY,
+    });
+  }, [active, payload]);
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          border: "1px solid #ccc",
+          padding: "10px",
+          borderRadius: "5px",
+          fontSize: "14px",
+          color: "#333",
+        }}
+      >
+        {payload.map((entry, index) => {
+          if (!entry) return null;
+          return (
+            <div key={`item-${index}`}>
+              {(entry.name || entry.dataKey) ?? "N/A"}: {entry.value ?? "N/A"}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return null;
 };
 
@@ -68,8 +103,9 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           domain={[0, 30]}
           ticks={ticks}
         />
-        // Graph.jsx (수정된 부분)
+
         <Tooltip content={<CustomTooltip onNodeDragEnd={onNodeDragEnd} />} />
+
         <Scatter
           name="Visible Grid Points"
           data={fakeData}
