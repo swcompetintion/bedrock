@@ -101,6 +101,7 @@ import {
 import Node from "./Node";
 
 const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
+  console.log("sssssssssssssssssss");
   useEffect(() => {
     const jsonString = JSON.stringify(payload);
     const regex = /"payload":\{"x":(\d+),"y":(\d+)\}/;
