@@ -4,24 +4,27 @@ const Node = (props) => {
   const { cx, cy, payload, handleClick } = props;
   const [currentPos, setCurrentPos] = useState({ x: cx, y: cy });
   const [isDragging, setIsDragging] = useState(false);
+
+  const [isHidden, setIsHidden] = useState(false);
+
   const startClientPosRef = useRef({ x: 0, y: 0 });
   const startNodePosRef = useRef({ x: cx, y: cy });
   const totalDragDeltaRef = useRef({ x: 0, y: 0 });
+
   useEffect(() => {
     setCurrentPos({ x: cx, y: cy });
     startNodePosRef.current = { x: cx, y: cy };
     totalDragDeltaRef.current = { x: 0, y: 0 };
+
+    setIsHidden(false);
   }, [cx, cy]);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
-    localStorage.setItem("id", payload.id);
+
     startClientPosRef.current = { x: e.clientX, y: e.clientY };
-
     startNodePosRef.current = { x: currentPos.x, y: currentPos.y };
-
     totalDragDeltaRef.current = { x: 0, y: 0 };
-
     e.preventDefault();
   };
 
@@ -45,7 +48,10 @@ const Node = (props) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-    localStorage.removeItem("id");
+
+    localStorage.setItem("id", payload.id);
+    console.log("mouse up");
+
     const movedDistance = Math.sqrt(
       Math.pow(totalDragDeltaRef.current.x, 2) +
         Math.pow(totalDragDeltaRef.current.y, 2)
@@ -59,6 +65,8 @@ const Node = (props) => {
       }
 
       setCurrentPos({ x: cx, y: cy });
+    } else {
+      setIsHidden(true);
     }
 
     totalDragDeltaRef.current = { x: 0, y: 0 };
@@ -75,6 +83,10 @@ const Node = (props) => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isDragging]);
+
+  if (isHidden) {
+    return null;
+  }
 
   return (
     <circle
