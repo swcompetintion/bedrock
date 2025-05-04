@@ -9,29 +9,21 @@ import {
 } from "recharts";
 import Node from "./Node";
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
+  console.log(payload);
+  if (localStorage.getItem("id") === null) {
+    return;
+  }
   useEffect(() => {
-    if (!active) {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
-      return;
-    }
-
-    if (!payload || !Array.isArray(payload) || payload.length === 0) {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
-      return;
-    }
-
     const xEntry = payload.find((entry) => entry.dataKey === "x");
     const yEntry = payload.find((entry) => entry.dataKey === "y");
 
     const extractedX = xEntry?.value;
     const extractedY = yEntry?.value;
+    const extractedId = localStorage.getItem("id");
     if (extractedX !== undefined && extractedY !== undefined) {
       try {
-        localStorage.setItem("tooltipX", String(extractedX));
-        localStorage.setItem("tooltipY", String(extractedY));
+        onNodeDragEnd({ id: extractedId, x: extractedX, y: extractedY });
       } catch (e) {
         console.error(
           "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
@@ -107,7 +99,7 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           ticks={ticks}
         />
 
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<CustomTooltip onNodeDragEnd={onNodeDragEnd} />} />
 
         <Scatter
           name="Visible Grid Points"
@@ -120,13 +112,7 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
         <Scatter
           name="Actual Data"
           data={filteredData}
-          shape={(props) => (
-            <Node
-              {...props}
-              handleClick={handleClick}
-              onNodeDragEnd={onNodeDragEnd}
-            />
-          )}
+          shape={(props) => <Node {...props} handleClick={handleClick} />}
           fill="#8884d8"
         />
       </ScatterChart>
