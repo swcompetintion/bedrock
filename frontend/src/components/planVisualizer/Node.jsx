@@ -15,6 +15,8 @@ const Node = (props) => {
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
+    localStorage.setItem("id", payload.id);
+    console.log("giririgrig");
     startClientPosRef.current = { x: e.clientX, y: e.clientY };
 
     startNodePosRef.current = { x: currentPos.x, y: currentPos.y };
@@ -44,7 +46,8 @@ const Node = (props) => {
 
   const handleMouseUp = () => {
     setIsDragging(false);
-
+    onNodeDragEnd({});
+    localStorage.removeItem("id");
     const movedDistance = Math.sqrt(
       Math.pow(totalDragDeltaRef.current.x, 2) +
         Math.pow(totalDragDeltaRef.current.y, 2)
@@ -58,15 +61,6 @@ const Node = (props) => {
       }
 
       setCurrentPos({ x: cx, y: cy });
-    } else {
-      if (onNodeDragEnd) {
-        console.log("Node dragged to:", currentPos);
-        onNodeDragEnd({
-          id: payload.id,
-          x: payload.x + totalDragDeltaRef.current.x,
-          y: payload.y - totalDragDeltaRef.current.y,
-        });
-      }
     }
 
     totalDragDeltaRef.current = { x: 0, y: 0 };
@@ -92,7 +86,6 @@ const Node = (props) => {
       fill="#8884d8"
       style={{ cursor: isDragging ? "grabbing" : "grab" }}
       onMouseDown={handleMouseDown}
-      onMouseOver={() => console.log("Custom Node Mouse over", payload)}
     />
   );
 };
