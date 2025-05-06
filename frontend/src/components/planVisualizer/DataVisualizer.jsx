@@ -18,7 +18,7 @@ const DataVisualizer = ({ children }) => {
         item.id === Number(id) ? { ...item, x: numX, y: numY } : item
       );
 
-      const sortedData = updatedData.slice().sort((a, b) => {
+      const sortedData = updatedData.sort((a, b) => {
         const ax = parseFloat(a.x);
         const bx = parseFloat(b.x);
         const ay = parseFloat(a.y);

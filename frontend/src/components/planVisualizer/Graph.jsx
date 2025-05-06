@@ -9,8 +9,7 @@ import {
 } from "recharts";
 import Node from "./Node";
 
-const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
-  console.log(payload);
+const CustomTooltip = ({ active, payload, _, onNodeDragEnd }) => {
   if (localStorage.getItem("id") === null) {
     return;
   }
@@ -21,9 +20,9 @@ const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
     const extractedX = xEntry?.value;
     const extractedY = yEntry?.value;
 
-    if (extractedX !== undefined && extractedY !== undefined) {
+    if (extractedX && extractedY) {
       try {
-        onNodeDragEnd({ x: extractedX, y: extractedY });
+        onNodeDragEnd({ x: Number(extractedX), y: Number(extractedY) });
       } catch (e) {
         console.error(
           "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
