@@ -20,29 +20,17 @@ const CustomTooltip = ({ active, payload, label, onNodeDragEnd }) => {
 
     const extractedX = xEntry?.value;
     const extractedY = yEntry?.value;
-    const extractedId = localStorage.getItem("id");
+
     if (extractedX !== undefined && extractedY !== undefined) {
       try {
-        onNodeDragEnd({ id: extractedId, x: extractedX, y: extractedY });
+        onNodeDragEnd({ x: extractedX, y: extractedY });
       } catch (e) {
         console.error(
           "CustomTooltip: 툴팁 좌표를 localStorage에 저장 중 오류 발생:",
           e
         );
       }
-    } else {
-      localStorage.removeItem("tooltipX");
-      localStorage.removeItem("tooltipY");
-      console.warn(
-        "CustomTooltip: 페이로드에서 유효한 좌표 값을 추출할 수 없습니다."
-      );
     }
-    console.log(extractedX, extractedY, localStorage.getItem("id"));
-    onNodeDragEnd({
-      id: localStorage.getItem("id"),
-      x: extractedX,
-      y: extractedY,
-    });
   }, [active, payload]);
   if (active && payload && payload.length) {
     return (

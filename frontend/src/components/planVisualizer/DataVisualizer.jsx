@@ -3,9 +3,8 @@ import { initialData } from "../../tests/DummyData";
 const DataVisualizer = ({ children }) => {
   const [data, setData] = useState(initialData);
 
-  const updateNodePosition = ({ id, x, y }) => {
-    console.log(" x:" + x + " y:" + y + " id:" + id);
-
+  const updateNodePosition = ({ x, y }) => {
+    const id = localStorage.getItem("id");
     const numX = parseFloat(x);
     const numY = parseFloat(y);
 
