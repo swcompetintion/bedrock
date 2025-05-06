@@ -50,7 +50,6 @@ const Node = (props) => {
     setIsDragging(false);
 
     localStorage.setItem("id", payload.id);
-    console.log("mouse up");
 
     const movedDistance = Math.sqrt(
       Math.pow(totalDragDeltaRef.current.x, 2) +
