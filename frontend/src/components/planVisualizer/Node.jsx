@@ -91,7 +91,7 @@ const Node = (props) => {
     <circle
       cx={currentPos.x}
       cy={currentPos.y}
-      r={5}
+      r={10}
       fill="#8884d8"
       style={{ cursor: isDragging ? "grabbing" : "grab" }}
       onMouseDown={handleMouseDown}

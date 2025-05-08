@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  ZAxis,
 } from "recharts";
 import Node from "./Node";
 
@@ -60,14 +61,14 @@ const CustomTooltip = ({ active, payload, _, onNodeDragEnd }) => {
 
 const Graph = ({ data, handleClick, onNodeDragEnd }) => {
   const filteredData = data.filter((item) => {
-    return item.x >= 0 && item.x <= 30 && item.y >= 0 && item.y <= 30;
+    return item.x >= 0 && item.x <= 11 && item.y >= 0 && item.y <= 11;
   });
 
-  const ticks = Array.from({ length: 31 }, (_, i) => i);
+  const ticks = Array.from({ length: 11 }, (_, i) => i);
 
   const fakeData = [];
-  for (let y = 0; y < 31; y++) {
-    for (let x = 0; x < 31; x++) {
+  for (let y = 0; y < 11; y++) {
+    for (let x = 0; x < 11; x++) {
       fakeData.push({ x, y });
     }
   }
@@ -79,7 +80,7 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           type="number"
           dataKey="x"
           name="X-coordinate"
-          domain={[0, 30]}
+          domain={[0, 11]}
           ticks={ticks}
           interval={0}
         />
@@ -87,9 +88,10 @@ const Graph = ({ data, handleClick, onNodeDragEnd }) => {
           type="number"
           dataKey="y"
           name="Y-coordinate"
-          domain={[0, 30]}
+          domain={[0, 11]}
           ticks={ticks}
         />
+        <ZAxis range={[600, 600]} />
 
         <Tooltip content={<CustomTooltip onNodeDragEnd={onNodeDragEnd} />} />
 
