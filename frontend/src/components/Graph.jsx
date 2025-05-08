@@ -1,6 +1,6 @@
 // src/components/chart/Graph.jsx
 import React, { useRef } from "react";
-import { Scatter } from "react-chartjs-2";
+import { Bubble } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   LinearScale,
@@ -75,7 +75,8 @@ const Graph = ({ chartData, options, onPointDragEnd, onTagDrop }) => {
   // 차트 컨테이너 스타일 (드래그 중 시각적 피드백 포함)
   const chartContainerStyle = {
     position: "relative", // 내부 요소 위치 조절을 위해 필요
-    height: "100%", // 부모 div의 높이를 채우도록 설정
+    height: "500px", // 부모 div의 높이를 채우도록 설정
+
     border: isOver ? "2px dashed green" : "2px dashed transparent", // 드래그 중 시각적 피드백
     backgroundColor: isOver ? "rgba(0, 255, 0, 0.05)" : "transparent", // 드래그 중 배경색 변경
     transition:
@@ -103,7 +104,7 @@ const Graph = ({ chartData, options, onPointDragEnd, onTagDrop }) => {
   return (
     // ref={drop}를 적용하여 이 div 엘리먼트를 드롭 대상으로 만듭니다.
     <div ref={drop} style={chartContainerStyle}>
-      <Scatter
+      <Bubble
         ref={chartRef} // Chart.js 인스턴스에 접근하기 위해 ref 연결
         data={chartData}
         options={chartOptionsWithDrag} // 드래그 핸들러가 연결된 옵션 사용
