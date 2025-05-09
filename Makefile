@@ -1,25 +1,24 @@
-FRONTEND_DIR=frontend
-BACKEND_DIR=backend
+.PHONY: build up down clean
+
+all: build up
+
+build:
+	@echo "이미지를 만드는중임"
+	docker compose build
+
+up:
+	@echo "폴더 없으면 만듬 요기에 디비 데이터 저장할거임"
+	mkdir -p ./mongo-data 
+	@echo "이미지를 실행중임"
+	docker compose up -d
+
+down:
+	@echo "끕니다잉"
+	docker compose down
+
+clean:
+	@echo ">>> 볼륨빼고 싹다 지우는겨"
+	docker system prune -f --volumes
 
 
-.PHONY: init install-backend install-frontend run-backend run-frontend
-init:
-	@echo "Entering Venv..."
-	poetry shell
 
-install-backend:
-	@echo "Installing backend dependencies..."
-	cd $(BACKEND_DIR) && poetry install
-
-install-frontend:
-	@echo "Installing frontend dependencies..."
-	cd $(FRONTEND_DIR) && npm install
-
-run-backend:
-	@echo "Running FastAPI backend... And Building bundle.js"
-	npm --prefix frontend run build
-	uvicorn $(BACKEND_DIR).main:app --reload
-
-run-frontend:
-	@echo "Running React frontend..."
-	cd $(FRONTEND_DIR) && npm start
