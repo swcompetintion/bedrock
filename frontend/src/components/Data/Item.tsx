@@ -1,7 +1,5 @@
-
-
 const Item = {
-  TAG: "tag", 
+  TAG: "tag",
 };
 
 export { Item };

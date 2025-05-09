@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDrag } from "react-dnd";
-import { Item } from "./Item"; 
+import { Item } from "./Item";
 
 interface TagProps {
   id: number;
@@ -16,9 +16,9 @@ const Tag: React.FC<TagProps> = ({ id, name }) => {
     }),
   }));
 
-  const tagRef = useRef<HTMLDivElement | null>(null); 
+  const tagRef = useRef<HTMLDivElement | null>(null);
 
-  drag(tagRef); 
+  drag(tagRef);
 
   const style: React.CSSProperties = {
     padding: "8px",
