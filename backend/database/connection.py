@@ -7,7 +7,8 @@ from backend.schemas.plans import PlanUpdate
 
 async def initialize_database():
     try:
-        client = AsyncIOMotorClient(settings.DATABASE_URL)
+        URL = settings.DATABASE_URL.replace("\\x3a", ':')
+        client = AsyncIOMotorClient(URL)
         await init_beanie(
             database=client.get_default_database(),
             document_models=[PlanModel]

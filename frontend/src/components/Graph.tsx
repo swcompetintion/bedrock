@@ -22,7 +22,7 @@ interface GraphProps {
 
 const Graph: React.FC<GraphProps> = ({ chartData, options, onPointDragEnd, onTagDrop }) => {
   const chartRef = useRef<any>(null);
-  const dropRef = useRef<HTMLDivElement | null>(null); // ref를 명확히 정의
+  const dropRef = useRef<HTMLDivElement | null>(null); 
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: Item.TAG,
@@ -32,7 +32,7 @@ const Graph: React.FC<GraphProps> = ({ chartData, options, onPointDragEnd, onTag
         console.error("Chart reference or client offset is null.");
         return;
       }
-      const chart = chartRef.current; // Chart.js 인스턴스 접근
+      const chart = chartRef.current; 
       const canvasRect = chart.canvas.getBoundingClientRect();
       const canvasX = clientOffset.x - canvasRect.left;
       const canvasY = clientOffset.y - canvasRect.top;

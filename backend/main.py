@@ -1,6 +1,6 @@
 import os
+from .core.url import FRONTEND_PATHS
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from backend.database.connection import initialize_database
@@ -22,4 +22,7 @@ REACT_BUILD_DIR = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "..", "frontend/dist")
 
 app.include_router(plan_router)
-app.mount("/", StaticFiles(directory=REACT_BUILD_DIR, html=True), name="static")
+
+
+for FRONTEND_PATH in FRONTEND_PATHS:
+    app.mount(**FRONTEND_PATH)

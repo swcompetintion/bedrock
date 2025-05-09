@@ -16,7 +16,7 @@ const Tag: React.FC<TagProps> = ({ id, name }) => {
     }),
   }));
 
-  const tagRef = useRef<HTMLDivElement | null>(null); // div에 대한 ref 생성
+  const tagRef = useRef<HTMLDivElement | null>(null); 
 
   drag(tagRef); 
 
