@@ -13,7 +13,7 @@ const Main = (): React.ReactElement => {
       </Routes>
     </Router>
   );
-};
+}
 
 // document.getElementById는 HTMLElement | null 타입을 반환합니다.
 const container = document.getElementById("root");
