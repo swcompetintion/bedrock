@@ -21,12 +21,12 @@ clean:
 	docker system prune -f --volumes
 
 run-backend:
-	@ehco "번들js 빌드중임"
+	@echo "번들js 빌드중임"
 	npm --prefix frontend run build
-	@ehco "백엔드 시작중ㄷ"
-	uvicorn backend.main:app --reload
+	@echo "백엔드 시작중ㄷ"
+	poetry run uvicorn backend.main:app --reload
 
 run-frontend:
-	@ehco "dev파일 빌드중임"
+	@echo "dev파일 빌드중임"
 	npm --prefix frontend start
 

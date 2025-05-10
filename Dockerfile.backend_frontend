@@ -10,20 +10,18 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get clean && \
     rm -rf /var/lib/apt/apt/lists/*
 
-WORKDIR /app/fastapi-react
 
-RUN git clone https://github.com/creepereye1204/bedrock.git .
 
-RUN npm --prefix frontend install
+RUN mkdir -p /opt/fastapi-react
+
+WORKDIR /opt/fastapi-react
 
 RUN pip install poetry
-
-RUN eval $(poetry env activate)
-
-RUN poetry install
-
+COPY ./ /opt/fastapi-react
+RUN poetry install || true
+RUN npm --prefix frontend install
 RUN apt-get install make
 
-RUN echo "DATABASE_URL=mongodb://swcompetition:swcompetition@localhost:27017/app?authSource=admin&retryWrites=true&w=majority" > .env
+RUN echo "DATABASE_URL=mongodb://swcompetition:swcompetition@mongodb/app?authSource=admin&retryWrites=true&w=majority" > .env
 
 CMD ["tail", "-f", "/dev/null"]

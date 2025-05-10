@@ -17,7 +17,7 @@ services:
       - mongodb
 
     volumes: 
-      - .:/app 
+      - .:/opt/fastapi-react
 
 
   mongodb:
