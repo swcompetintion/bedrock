@@ -1,4 +1,4 @@
-.PHONY: build up down clean
+.PHONY: build up down clean run-backend run-frontend
 
 all: build up
 
@@ -20,5 +20,13 @@ clean:
 	@echo ">>> 볼륨빼고 싹다 지우는겨"
 	docker system prune -f --volumes
 
+run-backend:
+	@ehco "번들js 빌드중임"
+	npm --prefix frontend run build
+	@ehco "백엔드 시작중ㄷ"
+	uvicorn backend.main:app --reload
 
+run-frontend:
+	@ehco "dev파일 빌드중임"
+	npm --prefix frontend start
 
