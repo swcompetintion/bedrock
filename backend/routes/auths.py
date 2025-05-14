@@ -7,6 +7,7 @@ auth_router = APIRouter(
     prefix="/auths"
 )
 
+
 # GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 
 
