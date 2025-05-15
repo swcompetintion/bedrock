@@ -4,6 +4,7 @@ from beanie import Document
 
 
 class PlanModel(Plan, Document):
+    """DB 저장/조회기능을 붙인 DB모델"""
     id: int
     model_config = ConfigDict(
         json_schema_extra={

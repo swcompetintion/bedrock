@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
-import { Bubble } from "react-chartjs-2";
+import { Bubble } from "react-chartjs-2"; // 자바스크립트 차트 라이브러리
 import {
   Chart as ChartJS,
   LinearScale,
   PointElement,
   Tooltip,
   Legend,
-} from "chart.js";
+} from "chart.js"; // 자바스크립트 차트 라이브러리
 import dragData from "chartjs-plugin-dragdata";
 import { useDrop } from "react-dnd";
 import { Item } from "../Data/Item";
@@ -37,10 +37,10 @@ const Graph: React.FC<GraphProps> = ({ chartData, options, onTagDrop }) => {
         return;
       }
       const chart = chartRef.current;
-      const canvasRect = chart.canvas.getBoundingClientRect();
-      const canvasX = clientOffset.x - canvasRect.left;
-      const canvasY = clientOffset.y - canvasRect.top;
-      const dataX = chart.scales["x"].getValueForPixel(canvasX);
+      const canvasRect = chart.canvas.getBoundingClientRect(); // DOM 요소의 위치와 크기를 브라우저 화면 기준으로 반환
+      const canvasX = clientOffset.x - canvasRect.left; // 마우스가 캔버스 왼쪽에서 얼마나 오른쪽에 있는지
+      const canvasY = clientOffset.y - canvasRect.top; // 마우스가 캔버스 꼭대기에서 얼마나 아래에 있는지
+      const dataX = chart.scales["x"].getValueForPixel(canvasX); // 캔버스에서 마우스의 x축에서 값
       const dataY = chart.scales["y"].getValueForPixel(canvasY);
 
       if (onTagDrop) {

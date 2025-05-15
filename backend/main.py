@@ -4,16 +4,16 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 # CORS 미들웨어를 임포트합니다.
 from fastapi.middleware.cors import CORSMiddleware
-
 from backend.database.connection import initialize_database
 from .routes.plans import plan_router
 from .routes.auths import auth_router
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # 데이터베이스 초기화는 애플리케이션 시작 시 한 번만 수행됩니다.
-    await initialize_database()
+
+@asynccontextmanager # async/await 문에서 yield를 사용할 수 있게 만듬
+async def lifespan(app: FastAPI): # 애플리케이션 시작 때 1번, 종료 때 1번 실행되는 블록
+    await initialize_database() 
+
     yield
     # 애플리케이션 종료 시 필요한 정리 작업이 있다면 여기에 추가합니다.
 
@@ -38,7 +38,7 @@ app.add_middleware(
 
 
 REACT_BUILD_DIR = os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), "..", "frontend/dist")
+    os.path.abspath(__file__)), "..", "frontend/dist") # 부보 디렉터리 아래에 있는 frontend/dist를 튜플로 가져와서 경로 합침
 
 app.include_router(plan_router)
 app.include_router(auth_router)
@@ -53,3 +53,4 @@ for FRONTEND_PATH in FRONTEND_PATHS:
 # app.mount("/static", StaticFiles(directory=REACT_BUILD_DIR), name="static")
 # 또는 프론트엔드 라우팅 처리를 위한 Catch-all 라우트 설정 등...
 # 이는 FRONTEND_PATHS의 내용에 따라 달라집니다.
+

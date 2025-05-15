@@ -10,8 +10,8 @@ const TestData1 = {
       ],
       backgroundColor: "rgba(75, 192, 192, 0.6)",
       borderColor: "rgba(75, 192, 192, 1)",
-      pointRadius: 18,
-      pointHoverRadius: 10,
+      pointRadius: 18,  // 반지름
+      pointHoverRadius: 10, // 마우스를 올렸을 때 반지름름
     },
   ],
 };
