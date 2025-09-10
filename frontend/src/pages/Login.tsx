@@ -40,4 +40,4 @@ const AuthorizationCodeFlow = () => {
   );
 };
 
-export { ClientSideIDTokenFlow };
+export default ClientSideIDTokenFlow;
