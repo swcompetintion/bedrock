@@ -24,7 +24,7 @@ run-backend:
 	@echo "번들js 빌드중임"
 	npm --prefix frontend run build
 	@echo "백엔드 시작중ㄷ"
-	poetry run uvicorn backend.main:app --reload
+	poetry run uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
 
 run-frontend:
 	@echo "dev파일 빌드중임"
