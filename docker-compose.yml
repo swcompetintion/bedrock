@@ -1,49 +1,53 @@
-
-
 version: '3.8'
 
 services:
 
- 
   backend_frontend_env:
-    
+
     build:
       context: .
       dockerfile: Dockerfile.backend_frontend
 
     container_name: backend_frontend_env_container
-    
+
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+
     networks:
       - app_network
-    
+
     depends_on:
       - mongodb
 
+    volumes: 
+      - .:/opt/fastapi-react
 
 
-  
   mongodb:
     build:
       context: .
       dockerfile: Dockerfile.mongo_db
-   
+
     container_name: mongodb_container
-    
+
+    ports:
+      - "27017:27017"
+
     volumes:
-      - mongo_data:/opt/db 
-    
+      - mongo_data:/opt/db
+
     environment:
       MONGO_INITDB_ROOT_USERNAME: swcompetition
       MONGO_INITDB_ROOT_PASSWORD: swcompetition
-  
+
     networks:
       - app_network
 
 
-
 networks:
   app_network:
-    driver: bridge 
+    driver: bridge
 
 volumes:
-  mongo_data: 
+  mongo_data:

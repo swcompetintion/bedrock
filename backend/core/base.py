@@ -1,9 +1,12 @@
 
+from pydantic import BaseModel
+from typing import Optional
 
-class Plan:
-    id: int
-    title: str | None = None
-    description: str | None = None
-    tags: list[str] | None = None
-    location: str | None = None
-    created_at: str | None = None
+
+class Plan(BaseModel):
+    id: Optional[int] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    tags: Optional[list[str]] = None
+    location: Optional[str] = None
+    created_at: Optional[str] = None

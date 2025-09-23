@@ -1,28 +1,27 @@
-
-
 FROM python:3.13-slim
 
 RUN apt-get update && \
     apt-get install -y curl gnupg git && \
-    rm -rf /var/lib/apt/lists/* 
-
+    rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs && \
     apt-get clean && \
-    rm -rf /var/lib/apt/apt/lists/* 
+    rm -rf /var/lib/apt/apt/lists/*
 
 
-RUN node -v && npm -v
 
+RUN mkdir -p /opt/fastapi-react
 
-WORKDIR /app
+WORKDIR /opt/fastapi-react
 
+RUN pip install poetry
+COPY ./ /opt/fastapi-react
+RUN poetry install || true
+RUN npm --prefix frontend install
+RUN apt-get install make
 
-RUN git clone https://github.com/creepereye1204/fastapi-react.git .
-
+RUN echo "DATABASE_URL=mongodb://swcompetition:swcompetition@mongodb/app?authSource=admin&retryWrites=true&w=majority" > .env
 
 CMD ["tail", "-f", "/dev/null"]
-
-

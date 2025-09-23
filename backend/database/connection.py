@@ -7,7 +7,8 @@ from backend.schemas.plans import PlanUpdate
 
 async def initialize_database():
     try:
-        client = AsyncIOMotorClient(settings.DATABASE_URL)
+        URL = settings.DATABASE_URL.replace("\\x3a", ':')
+        client = AsyncIOMotorClient(URL)
         await init_beanie(
             database=client.get_default_database(),
             document_models=[PlanModel]
@@ -26,20 +27,21 @@ class Database:
         return
 
     async def get_all(self) -> list:
-
         docs = await self.model.find_all().to_list()
         return docs
 
     async def delete(self, id: int):
-        doc = await self.model.get(id)
-        await doc.delete()
+        doc = await self.model.find_one(self.model.id == id)
+        if doc:
+            await doc.delete()
 
     async def get(self, id: int):
-        doc = await self.model.get(id)
+        doc = await self.model.find_one(self.model.id == id)
         return doc
 
     async def update(self, id: int, body: PlanUpdate):
-        doc = await self.model.get(id)
-        body = body.model_dump()
-        body = {"$set": {k: v for k, v in body.items() if v is not None}}
-        await doc.update(body)
+        doc = await self.model.find_one(self.model.id == id)
+        if doc:
+            body_dict = body.model_dump(exclude_unset=True)
+            update_data = {"$set": {k: v for k, v in body_dict.items() if v is not None}}
+            await doc.update(update_data)
