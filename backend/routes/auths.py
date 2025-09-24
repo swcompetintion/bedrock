@@ -28,9 +28,6 @@ async def google_verify(payload: GoogleVerifyRequest):
 
     token_info = resp.json()
 
-    if token_info["aud"] != GOOGLE_CLIENT_ID:
-        raise HTTPException(status_code=400, detail="Token audience mismatch")
-
     user_email = token_info["email"]
 
     return {"access_token":  user_email, "token_type": "bearer"}
