@@ -5,7 +5,7 @@ const ClientSideIDTokenFlow = () => {
   const handleLoginSuccess = async (credentialResponse: any) => {
     const idToken = credentialResponse.credential;
 
-    const res = await fetch("http://localhost:8000/auths/google-verify", {
+    const res = await fetch("http://localhost:8001/auths/google-verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +17,7 @@ const ClientSideIDTokenFlow = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId="818064127728-34agr6511gtk4gtgdfec0phqskkkptju.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId='818064127728-34agr6511gtk4gtgdfec0phqskkkptju.apps.googleusercontent.com'>
       <div>
         <h1>ClientSide IDToken Flow</h1>
         <GoogleLogin
@@ -31,13 +31,6 @@ const ClientSideIDTokenFlow = () => {
   );
 };
 
-const AuthorizationCodeFlow = () => {
-  return (
-    <div>
-      <h1>Authorization Code Flow</h1>
-      <p>Implement the Authorization Code Flow here.</p>
-    </div>
-  );
-};
 
-export { ClientSideIDTokenFlow };
+
+export default ClientSideIDTokenFlow;
