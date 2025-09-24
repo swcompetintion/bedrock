@@ -10,6 +10,10 @@ services:
 
     container_name: backend_frontend_env_container
 
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+
     networks:
       - app_network
 
@@ -26,6 +30,9 @@ services:
       dockerfile: Dockerfile.mongo_db
 
     container_name: mongodb_container
+
+    ports:
+      - "27017:27017"
 
     volumes:
       - mongo_data:/opt/db
